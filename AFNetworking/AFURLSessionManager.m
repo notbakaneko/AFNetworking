@@ -124,7 +124,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 
     self.mutableData = [NSMutableData data];
 
-    self.progress = [NSProgress progressWithTotalUnitCount:0];
+    // self.progress = [NSProgress progressWithTotalUnitCount:0];
 
     return self;
 }
@@ -388,8 +388,8 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
         [uploadTask cancel];
     };
 
-    if (progress) {
-        *progress = delegate.progress;
+    if (progress && *progress) {
+        delegate.progress = *progress;
     }
 
     [self setDelegate:delegate forTask:uploadTask];
@@ -410,8 +410,8 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
         };
     }
 
-    if (progress) {
-        *progress = delegate.progress;
+    if (progress && *progress) {
+        delegate.progress = *progress;
     }
 
     [self setDelegate:delegate forTask:downloadTask];
