@@ -365,7 +365,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 }
 
 - (void)addDelegateForUploadTask:(NSURLSessionUploadTask *)uploadTask
-                        progress:(NSProgress * __autoreleasing *)progress
+                        progress:(NSProgress *)progress
                completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
     AFURLSessionManagerTaskDelegate *delegate = [[AFURLSessionManagerTaskDelegate alloc] init];
@@ -388,15 +388,15 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
         [uploadTask cancel];
     };
 
-    if (progress && *progress) {
-        delegate.progress = *progress;
+    if (progress) {
+        delegate.progress = progress;
     }
 
     [self setDelegate:delegate forTask:uploadTask];
 }
 
 - (void)addDelegateForDownloadTask:(NSURLSessionDownloadTask *)downloadTask
-                          progress:(NSProgress * __autoreleasing *)progress
+                          progress:(NSProgress *)progress
                        destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                  completionHandler:(void (^)(NSURLResponse *response, NSURL *filePath, NSError *error))completionHandler
 {
@@ -410,8 +410,8 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
         };
     }
 
-    if (progress && *progress) {
-        delegate.progress = *progress;
+    if (progress) {
+        delegate.progress = progress;
     }
 
     [self setDelegate:delegate forTask:downloadTask];
@@ -511,7 +511,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 
 - (NSURLSessionUploadTask *)uploadTaskWithRequest:(NSURLRequest *)request
                                          fromFile:(NSURL *)fileURL
-                                         progress:(NSProgress * __autoreleasing *)progress
+                                         progress:(NSProgress *)progress
                                 completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
     __block NSURLSessionUploadTask *uploadTask = nil;
@@ -532,7 +532,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 
 - (NSURLSessionUploadTask *)uploadTaskWithRequest:(NSURLRequest *)request
                                          fromData:(NSData *)bodyData
-                                         progress:(NSProgress * __autoreleasing *)progress
+                                         progress:(NSProgress *)progress
                                 completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
     __block NSURLSessionUploadTask *uploadTask = nil;
@@ -546,7 +546,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 }
 
 - (NSURLSessionUploadTask *)uploadTaskWithStreamedRequest:(NSURLRequest *)request
-                                                 progress:(NSProgress * __autoreleasing *)progress
+                                                 progress:(NSProgress *)progress
                                         completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
     __block NSURLSessionUploadTask *uploadTask = nil;
@@ -562,7 +562,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 #pragma mark -
 
 - (NSURLSessionDownloadTask *)downloadTaskWithRequest:(NSURLRequest *)request
-                                             progress:(NSProgress * __autoreleasing *)progress
+                                             progress:(NSProgress *)progress
                                           destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                                     completionHandler:(void (^)(NSURLResponse *response, NSURL *filePath, NSError *error))completionHandler
 {
@@ -577,7 +577,7 @@ expectedTotalBytes:(int64_t)expectedTotalBytes {
 }
 
 - (NSURLSessionDownloadTask *)downloadTaskWithResumeData:(NSData *)resumeData
-                                                progress:(NSProgress * __autoreleasing *)progress
+                                                progress:(NSProgress *)progress
                                              destination:(NSURL * (^)(NSURL *targetPath, NSURLResponse *response))destination
                                        completionHandler:(void (^)(NSURLResponse *response, NSURL *filePath, NSError *error))completionHandler
 {
